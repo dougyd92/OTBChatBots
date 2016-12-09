@@ -39,7 +39,7 @@ public class EchoDialog : IDialog<object>
                 "Didn't get that!",
                 promptStyle: PromptStyle.Auto);
         }
-        else if (message.Text.ToUpper().Contains("array"))
+        else if (message.Text.ToUpper().Contains("ARRAY"))
         {
             await context.PostAsync("I will attempt to parse your message into an array.");
             context.Wait(MessageReceivedAsync);
