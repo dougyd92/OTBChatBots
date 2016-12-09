@@ -39,6 +39,11 @@ public class EchoDialog : IDialog<object>
                 "Didn't get that!",
                 promptStyle: PromptStyle.Auto);
         }
+        else if (message.Text.ToUpper().Containts("array"))
+        {
+            await context.PostAsync("I will attempt to parse your message into an array.");
+            context.Wait(MessageReceivedAsync);
+        }
         else
         {
             await context.PostAsync($"{this.count++}: You said {message.Text.ToUpper()}");
