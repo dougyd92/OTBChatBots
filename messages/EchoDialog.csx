@@ -42,7 +42,18 @@ public class EchoDialog : IDialog<object>
         else if (message.Text.ToUpper().Contains("ARRAY"))
         {
             await context.PostAsync("I will attempt to parse your message into an array.");
-            context.Wait(MessageReceivedAsync);
+
+            List<string> options = message.Text.Split(' ').ToList();
+
+            PromptDialog.Choice(
+                context,
+                AfterArrayChoiceAsync,
+                options,
+                "Which would you like to choose ?",
+                "I'm sorry, I didn't understand your selection.",
+                5,
+                PromptStyle.Auto
+                );
         }
         else
         {
@@ -65,4 +76,14 @@ public class EchoDialog : IDialog<object>
         }
         context.Wait(MessageReceivedAsync);
     }
+
+    public async Task AfterArrayChoiceAsync(IDialogContext context, IAwaitable<string> argument)
+    {
+        var option = await argument;
+
+        await context.PostAsync("Array Aysnc handler.");
+        
+        context.Wait(MessageReceivedAsync);
+    }
+    
 }
