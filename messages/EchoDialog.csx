@@ -87,7 +87,7 @@ public class EchoDialog : IDialog<object>
          (message.Text.ToUpper().Contains("HUMAN BEING")) ||
          (message.Text.ToUpper().Contains("PHONE NUMBER")))
         {
-            await context.PostAsync(@"Sure thing! I'm sorry I couldn't resolve your issue; I am still a prototype, after all.");
+            await context.PostAsync(@"I am happy to put you in touch with a represntative! I'm sorry I couldn't resolve your issue; I am still a prototype, after all.");
             await ListContactInfoAsync(context);
             context.Wait(MessageReceivedAsync);
         }
@@ -256,7 +256,7 @@ public class EchoDialog : IDialog<object>
                 context.Wait(MessageReceivedAsync);
             }
         }
-        //TODO
+        
     }
 }
 
@@ -308,9 +308,9 @@ class DBStuff
             command.Connection = connection;
             command.CommandType = DT.CommandType.Text;
             command.CommandText = @"  
-                    SELECT title, full_description
+                    SELECT summary, full_description
                     FROM (
-                        SELECT title, full_description, ROW_NUMBER() OVER (ORDER BY KEY_TBL.rank, T.row_id) as row_num
+                        SELECT summary, full_description, ROW_NUMBER() OVER (ORDER BY KEY_TBL.rank, T.row_id) as row_num
                         FROM troubleshooting T
                         INNER JOIN FREETEXTTABLE(troubleshooting, summary, @searchstring) KEY_TBL ON T.row_id = KEY_TBL.[KEY]
                         ) as ordered_and_numbered
@@ -321,7 +321,7 @@ class DBStuff
 
             if (reader.Read())
             {
-                String s = String.Format("***{0}***\n\r{1}", reader.GetString(0), reader.GetString(1));
+                String s = String.Format("**Issue: {0}**\n\rSolution: {1}", reader.GetString(0), reader.GetString(1));
                 await context.PostAsync(s);
                 rows_found = true;
             }
@@ -337,7 +337,7 @@ class DBStuff
                 rows_found = false;
             }
         }
-
+        
         return rows_found;
     }
     public async Task print_new_features(IDialogContext context)
@@ -353,7 +353,7 @@ class DBStuff
 
             while (reader.Read())
             {
-                String s = String.Format("***{0}***\n\r{1}", reader.GetString(0), reader.GetString(1));
+                String s = String.Format("**{0}**\n\r{1}", reader.GetString(0), reader.GetString(1));
                 await context.PostAsync(s);
                 System.Threading.Thread.Sleep(500);
             }
@@ -373,7 +373,7 @@ class DBStuff
 
             while (reader.Read())
             {
-                String s = String.Format("***{0}***\n\r{1}", reader.GetString(0), reader.GetString(1));
+                String s = String.Format("**{0}**\n\r{1}", reader.GetString(0), reader.GetString(1));
                 await context.PostAsync(s);
                 System.Threading.Thread.Sleep(500);
             }
