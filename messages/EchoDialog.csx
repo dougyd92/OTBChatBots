@@ -272,7 +272,7 @@ class DBStuff
     public async Task connect_to_db(IDialogContext context)
     {
         connection = new QC.SqlConnection(
-        "Server=tcp:vsddj1.database.windows.net,1433;Initial Catalog=AlliantSupport;Persist Security Info=False;User ID=ddejesus;Password=t1mrssACC;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+        "Server=tcp:vsddj1.database.windows.net,1433;Initial Catalog=AlliantSupport;Persist Security Info=False;User ID=***REMOVED***;Password=***REMOVED***;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
         );
 
         try
