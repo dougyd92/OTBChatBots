@@ -91,6 +91,11 @@ public class EchoDialog : IDialog<object>
             await ListContactInfoAsync(context);
             context.Wait(MessageReceivedAsync);
         }
+        else if (message.Text.ToUpper().Contains("HELLO"))
+        {
+            await context.PostAsync(@"Hello! I am the Alliant Tech Support Bot! How can I assist you today?");
+            context.Wait(MessageReceivedAsync);
+        }
         else
         {
             await context.PostAsync(@"I'm sorry, I didn't understand that. You can say things like ""Diagnose a problem"" or ""Tell me about the lastest version of Alliant."" ");
@@ -321,6 +326,7 @@ class DBStuff
 
             if (reader.Read())
             {
+                await context.PostAsync("Does this sound similar to what you are experiencing?");
                 String s = String.Format("**Issue: {0}**\n\rSolution: {1}", reader.GetString(0), reader.GetString(1));
                 await context.PostAsync(s);
                 rows_found = true;
