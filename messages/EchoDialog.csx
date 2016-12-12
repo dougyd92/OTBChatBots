@@ -272,7 +272,7 @@ class DBStuff
     public async Task connect_to_db(IDialogContext context)
     {
         connection = new QC.SqlConnection(
-        "Server=tcp:vsddj1.database.windows.net,1433;Initial Catalog=AlliantSupport;Persist Security Info=False;User ID=***REMOVED***;Password=***REMOVED***;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+        "Server=tcp:vsddj1.database.windows.net,1433;Initial Catalog=AlliantSupport;Persist Security Info=False;User ID=ddejesus;Password=t1mrssACC;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
         );
 
         try
@@ -326,8 +326,8 @@ class DBStuff
 
             if (reader.Read())
             {
-                await context.PostAsync("Does this sound similar to what you are experiencing?");
-                String s = String.Format("**Issue: {0}**\n\rSolution: {1}", reader.GetString(0), reader.GetString(1));
+                //await context.PostAsync("Does this sound similar to what you are experiencing?");
+                String s = String.Format("Does this sound similar to what you are experiencing?\n\r**Issue: {0}**\n\rSolution: {1}", reader.GetString(0), reader.GetString(1));
                 await context.PostAsync(s);
                 rows_found = true;
             }
