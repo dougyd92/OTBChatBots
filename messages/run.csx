@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
+ 
 
 public static async Task<object> Run(HttpRequestMessage req, TraceWriter log)
 {
@@ -45,13 +46,8 @@ public static async Task<object> Run(HttpRequestMessage req, TraceWriter log)
                         var newMembers = update.MembersAdded?.Where(t => t.Id != activity.Recipient.Id);
                         foreach (var newMember in newMembers)
                         {
-                            reply.Text = "Hello! I am the Alliant Help Bot.";
+                            reply.Text = "Hello! I am the Alliant Tech Support Bot! How can I assist you today?";
 
-                            if (!string.IsNullOrEmpty(newMember.Name))
-                            {
-                                reply.Text += $" {newMember.Name}";
-                            }
-                            reply.Text += "!";
                             await client.Conversations.ReplyToActivityAsync(reply);
                         }
                     }
